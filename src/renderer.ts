@@ -1,16 +1,26 @@
 import './index.css';
-import { ball } from './constants';
+import * as constants from './constants';
 import { app } from './scripts/app';
 import { Ball } from './scripts/ball';
 
 window.onload = (): void => {
-    document.body.appendChild(app.view);
+	document.body.appendChild(app.view);
 
-    const playerBall = new Ball(ball.image, app.screen.width / 2, app.screen.height / 2);
-    app.stage.addChild(playerBall);
-    app.stage.eventMode = 'dynamic';
-    app.ticker.add(() => {
-        const mousePosition = app.renderer.plugins.interaction.pointer.global;
-        playerBall.position.set(mousePosition.x, mousePosition.y);
-    });
+	const ball = new Ball(constants.ball.image, app.screen.width / 2, app.screen.height);
+	app.stage.addChild(ball);
+	app.stage.eventMode = 'dynamic';
+
+	// move the ball
+	// playerBall.moveBall();
+
+	app.renderer.view.addEventListener('click', function (e: MouseEvent): void {
+		const rect = app.renderer.view.getBoundingClientRect();
+		const pointDirection = {
+			x: e.clientX - rect.left,
+			y: e.clientY - rect.top
+		};
+
+		ball.move(pointDirection);
+		// console.log(pointDirection);
+	});
 };

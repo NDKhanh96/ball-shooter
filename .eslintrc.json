@@ -17,6 +17,10 @@
     "semi": [
       "error",
       "always"
+    ],
+    "indent": [
+      "error",
+      "tab"
     ]
   }
 }
