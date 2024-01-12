@@ -6,7 +6,8 @@ import { Ball } from './scripts/ball';
 window.onload = (): void => {
 	document.body.appendChild(app.view);
 
-	const ball = new Ball(constants.ball.image, app.screen.width / 2, app.screen.height);
+	const ball = new Ball(constants.ball.image, app.screen.width / 2, app.screen.height / 2, 0.0001);
+
 	app.stage.addChild(ball);
 	app.stage.eventMode = 'dynamic';
 
@@ -21,6 +22,5 @@ window.onload = (): void => {
 		};
 
 		ball.move(pointDirection);
-		// console.log(pointDirection);
 	});
 };

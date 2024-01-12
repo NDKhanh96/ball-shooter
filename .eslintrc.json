@@ -14,6 +14,24 @@
   ],
   "parser": "@typescript-eslint/parser",
   "rules": {
+    "no-console": "warn",
+    "no-debugger": "error",
+    "no-dupe-keys": "error",
+    "no-duplicate-case": "error",
+    "no-empty": "error",
+    "no-extra-semi": "error",
+    "no-func-assign": "error",
+    "no-obj-calls": "error",
+    "no-sparse-arrays": "error",
+    "no-unreachable": "error",
+    "valid-typeof": "warn",
+    "curly": "error",
+    "eqeqeq": "warn",
+    "no-else-return": "warn",
+    "no-eval": "error",
+    "semi-spacing": "error",
+    "keyword-spacing": "error",
+    "space-infix-ops": "error",
     "semi": [
       "error",
       "always"
@@ -21,6 +39,50 @@
     "indent": [
       "error",
       "tab"
+    ],
+    "object-curly-spacing": [
+      "error",
+      "always"
+    ],
+    "padding-line-between-statements": [
+      "error",
+      {
+        "blankLine": "always",
+        "prev": "*",
+        "next": "return"
+      },
+      {
+        "blankLine": "always",
+        "prev": [
+          "const",
+          "let",
+          "var"
+        ],
+        "next": "*"
+      },
+      {
+        "blankLine": "any",
+        "prev": [
+          "const",
+          "let",
+          "var"
+        ],
+        "next": [
+          "const",
+          "let",
+          "var"
+        ]
+      },
+      {
+        "blankLine": "always",
+        "prev": "directive",
+        "next": "*"
+      },
+      {
+        "blankLine": "any",
+        "prev": "directive",
+        "next": "directive"
+      }
     ]
   }
 }
