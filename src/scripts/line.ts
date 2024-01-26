@@ -7,12 +7,16 @@ export class Line extends Graphics {
     }
 
     draw(ballPoint: Point, mousePoint: Point): void {
-        // clear the line before drawing
         this.clear();
         this.lineStyle(3, 'white', 1);
-        // start point
         this.moveTo(ballPoint.x, ballPoint.y);
-        // end point
         this.lineTo(mousePoint.x, mousePoint.y);
+        const dx: number = mousePoint.x - ballPoint.x, dy: number = mousePoint.y - ballPoint.y;
+        const length: number = Math.hypot(dx, dy);
+        const [nx, ny] = [dx / length, dy / length];
+        const [ex, ey] = [mousePoint.x + (0 - mousePoint.y) / ny * nx, 0];
+
+        this.lineTo(ex, ey);
+        this.currentPath.closeStroke = false;
     }
 }

@@ -7,9 +7,10 @@ import { Line } from './scripts/line';
 window.onload = (): void => {
     document.body.appendChild(app.view);
 
-    const ball = new Ball(constants.ball.image, app.screen.width / 2, app.screen.height / 2, 0.0001);
+    const ball = new Ball(constants.ball.image, app.screen.width / 2, app.screen.height, 0.0001);
     const line = new Line();
 
+    // add to the stage to render
     app.stage.addChild(ball);
     app.stage.addChild(line);
     app.stage.eventMode = 'dynamic';
