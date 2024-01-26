@@ -1,5 +1,6 @@
 import { Graphics } from 'pixi.js';
 import { Point } from '../type';
+import { gameWindow } from '../constants';
 
 export class Line extends Graphics {
     constructor() {
@@ -16,7 +17,22 @@ export class Line extends Graphics {
         const [nx, ny] = [dx / length, dy / length];
         const [ex, ey] = [mousePoint.x + (0 - mousePoint.y) / ny * nx, 0];
 
-        this.lineTo(ex, ey);
+        let hitEdgePoint: Point;
+
+        if (ex <= 0) {
+            hitEdgePoint = { x: 0, y: ballPoint.y - (ballPoint.x / nx) * ny };
+            this.lineTo(hitEdgePoint.x, hitEdgePoint.y);
+        } else if (ex >= gameWindow.width) {
+            hitEdgePoint = { x: 1280, y: ballPoint.y + ((1280 - ballPoint.x) / nx) * ny };
+            this.lineTo(hitEdgePoint.x, hitEdgePoint.y);
+        } else {
+            this.lineTo(ex, ey);
+        }
+
+        if (hitEdgePoint) {
+            this.lineTo(- ex, ey);
+        }
+
         this.currentPath.closeStroke = false;
     }
 }
