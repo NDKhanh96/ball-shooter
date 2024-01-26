@@ -7,26 +7,21 @@ import { Line } from './scripts/line';
 window.onload = (): void => {
     document.body.appendChild(app.view);
 
-    const ball = new Ball(constants.ball.image, app.screen.width / 2, app.screen.height, 0.0001);
+    const ball = new Ball(constants.ball.image, app.screen.width / 2, app.screen.height, 0.1);
     const line = new Line();
 
     // add to the stage to render
     app.stage.addChild(ball);
     app.stage.addChild(line);
     app.stage.eventMode = 'dynamic';
+    app.renderer.view.addEventListener('click', function (e: MouseEvent): void {
+        const mousePoint = {
+            x: e.clientX,
+            y: e.clientY
+        };
 
-    // move the ball
-    // playerBall.moveBall();
-
-    // app.renderer.view.addEventListener('click', function (e: MouseEvent): void {
-    // 	const rect = app.renderer.view.getBoundingClientRect();
-    // 	const pointDirection = {
-    // 		x: e.clientX - rect.left,
-    // 		y: e.clientY - rect.top
-    // 	};
-
-    // 	ball.move(pointDirection);
-    // });
+        ball.move(mousePoint);
+    });
 
     app.renderer.view.addEventListener('mousemove', function (e: MouseEvent): void {
         const ballPoint = {
