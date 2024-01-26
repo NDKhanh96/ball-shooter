@@ -7,6 +7,24 @@ export class Line extends Graphics {
         super();
     }
 
+    reflect(ballPoint: Point, ex: number, ey: number, nx: number, ny: number): void {
+        let hitEdgePoint: Point | undefined;
+
+        if (ex <= 0) {
+            hitEdgePoint = { x: 0, y: ballPoint.y - (ballPoint.x / nx) * ny };
+            this.lineTo(hitEdgePoint.x, hitEdgePoint.y);
+        } else if (ex >= gameWindow.width) {
+            hitEdgePoint = { x: gameWindow.width, y: ballPoint.y + ((gameWindow.width - ballPoint.x) / nx) * ny };
+            this.lineTo(hitEdgePoint.x, hitEdgePoint.y);
+        } else {
+            this.lineTo(ex, ey);
+        }
+
+        if (hitEdgePoint) {
+            this.lineTo(- ex, ey);
+        }
+    }
+
     draw(ballPoint: Point, mousePoint: Point): void {
         this.clear();
         this.lineStyle(3, 'white', 1);
@@ -17,22 +35,7 @@ export class Line extends Graphics {
         const [nx, ny] = [dx / length, dy / length];
         const [ex, ey] = [mousePoint.x + (0 - mousePoint.y) / ny * nx, 0];
 
-        let hitEdgePoint: Point;
-
-        if (ex <= 0) {
-            hitEdgePoint = { x: 0, y: ballPoint.y - (ballPoint.x / nx) * ny };
-            this.lineTo(hitEdgePoint.x, hitEdgePoint.y);
-        } else if (ex >= gameWindow.width) {
-            hitEdgePoint = { x: 1280, y: ballPoint.y + ((1280 - ballPoint.x) / nx) * ny };
-            this.lineTo(hitEdgePoint.x, hitEdgePoint.y);
-        } else {
-            this.lineTo(ex, ey);
-        }
-
-        if (hitEdgePoint) {
-            this.lineTo(- ex, ey);
-        }
-
+        this.reflect(ballPoint, ex, ey, nx, ny);
         this.currentPath.closeStroke = false;
     }
 }
