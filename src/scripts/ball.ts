@@ -18,13 +18,27 @@ export class Ball extends Sprite {
         const dx: number = mousePoint.x - this.x;
         const dy: number = mousePoint.y - this.y;
         const length: number = Math.hypot(dx, dy);
-        const [nx, ny] = [dx / length, dy / length];
+        let nx = dx / length;
+        const ny = dy / length;
 
-        app.ticker.add((delta: number) => {
+        const update = (delta: number) => {
+            if (this.y <= 0) {
+                app.ticker.remove(update);
+
+                return;
+            }
+
             elapsed += delta;
-            // this.x, this.y is default movement value of Sprite
+
+            if (this.x <= 0 || this.x >= app.screen.width) {
+                nx *= -1;
+            }
+
             this.x += nx * Math.abs(elapsed / speed);
             this.y += ny * Math.abs(elapsed / speed);
-        });
+        };
+
+        app.ticker.add(update);
+
     }
 }
